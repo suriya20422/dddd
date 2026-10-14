@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Banking Quant + Vedic Math: 30-Day Mock Tests</title>
+<style>
+:root{--bg:#f2f5fa;--fg:#14233b;--card:#fff;--mut:#5d6b82;--acc:#2540a8;--on:#fff;--bd:#d9e0ec;--ok:#15803d;--bad:#c62828;--amb:#d98a00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1523;--fg:#e6ebf5;--card:#18213a;--mut:#9aa8c2;--acc:#8fa8ff;--on:#0e1523;--bd:#2b3858;--ok:#4ade80;--bad:#f87171;--amb:#fbbf24}}
+:root[data-theme="dark"]{--bg:#0e1523;--fg:#e6ebf5;--card:#18213a;--mut:#9aa8c2;--acc:#8fa8ff;--on:#0e1523;--bd:#2b3858;--ok:#4ade80;--bad:#f87171;--amb:#fbbf24}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+main{max-width:780px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0;letter-spacing:-.01em}h2{font-size:1.2rem;margin:.3em 0 .6em}.mut{color:var(--mut)}
+button{font:inherit;color:inherit;cursor:pointer;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px}
+button:focus-visible{outline:3px solid var(--amb);outline-offset:2px}button:disabled{opacity:.4;cursor:default}
+.stats{border-left:5px solid var(--amb);background:var(--card);padding:10px 14px;margin:12px 0;border-radius:4px 10px 10px 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+.day{display:flex;flex-direction:column;gap:2px;text-align:left;min-height:92px}.day small{color:var(--acc);font-weight:700}.day span{font-weight:600;line-height:1.25}.day em{font-style:normal;color:var(--mut);font-size:.82rem;margin-top:auto}
+.day.done{border-color:var(--ok);border-width:2px}.day.mock{border-style:dashed;border-color:var(--amb)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:10px 0}
+.card h2{font-size:1.3rem}.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px}
+.sel{border-color:var(--acc);border-width:2px;background:color-mix(in srgb,var(--acc) 14%,var(--card))}
+.pri,.ans{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.bar{display:flex;justify-content:space-between;gap:8px;align-items:center}.tm{font-variant-numeric:tabular-nums;font-weight:800;color:var(--acc);font-size:1.2rem}
+.nav{display:flex;gap:8px;flex-wrap:wrap}.pal{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}.pal button{width:40px;padding:6px 0}.cur{outline:2px solid var(--amb);outline-offset:1px}
+.big{font-size:2.2rem;font-weight:800}.good{border-left:5px solid var(--ok)}.badc{border-left:5px solid var(--bad)}
+</style></head>
+<body><main id="app"></main>
+<script>
+const $=s=>document.querySelector(s);
+const MS=s=>()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+let rnd,T,Q,A,i,d,att,left;
+const r=(a,b)=>a+Math.floor(rnd()*(b-a+1)),pk=a=>a[r(0,a.length-1)],sh=a=>{for(let x=a.length-1;x>0;x--){let j=r(0,x);[a[x],a[j]]=[a[j],a[x]]}return a};
+function mk(q,a,t,u='#',dc=0){const m=10**dc,A0=Math.round(a*m),st=Math.max(1,Math.round(A0*.05)),s=new Set([A0]);let g=0;
+while(s.size<4&&g++<99){const v=A0+pk([1,-1,2,-2,3,-3,4,10,-10])*st;if(v>0)s.add(v)}
+const o=sh([...s]);return{q,o:o.map(v=>u.replace('#',(v/m).toFixed(dc))),c:o.indexOf(A0),t}}
+const G={
+add(){const a=r(1000,9999),b=r(1000,9999);return r(0,1)?mk(`${a} + ${b} = ?`,a+b,`Add left to right (thousands, hundreds, tens, units) and carry forward.`):mk(`${Math.max(a,b)} − ${Math.min(a,b)} = ?`,Math.abs(a-b),`Round ${Math.min(a,b)} up to a convenient number, subtract, then adjust the difference.`)},
+sq5(){const n=r(1,14),x=n*10+5;return mk(`${x}² = ?`,x*x,`Ekadhikena Purvena: ${n} × ${n+1} = ${n*(n+1)}, then attach 25 → ${x*x}`)},
+sq(){if(r(0,1)){const k=r(1,9),x=100-k;return mk(`${x}² = ?`,x*x,`Base 100: ${x}−${k} = ${x-k} | ${k}² = ${String(k*k).padStart(2,'0')} → ${x*x}`)}const e=pk([-9,-8,-7,-6,-4,-3,-2,-1,1,2,3,4,6,7,8,9]),x=50+e;return mk(`${x}² = ?`,x*x,`Base 50: (25${e<0?'−':'+'}${Math.abs(e)}) = ${25+e} | ${String(e*e).padStart(2,'0')} → ${x*x}`)},
+nik(){const p=r(2,12),q=r(2,12),a=100-p,b=100-q;return mk(`${a} × ${b} = ?`,a*b,`Nikhilam (base 100): deficits ${p} and ${q}. ${a}−${q} = ${a-q} | ${p}×${q} = ${p*q} → ${a*b}`)},
+urd(){const a=r(11,99),b=r(11,99),a1=a/10|0,a0=a%10,b1=b/10|0,b0=b%10;return mk(`${a} × ${b} = ?`,a*b,`Urdhva-Tiryagbhyam: ${a1*b1} | ${a1*b0+a0*b1} | ${a0*b0}, then carry from the right → ${a*b}`)},
+mul(){if(r(0,1)){const a=r(23,899);return mk(`${a} × 11 = ?`,a*11,`Add adjacent digits (carry if needed), or ${a}×10 + ${a}.`)}const k=r(0,2),m=[5,25,125][k],a=r(12,196);return mk(`${a} × ${m} = ?`,a*m,`${a} × ${m} = ${a} × ${[10,100,1000][k]} ÷ ${[2,4,8][k]}`)},
+frac(){const d=pk([6,7,9,11,12,16]),n=r(1,d-1);return mk(`${n}/${d} as a percentage = ?`,n/d*100,`Learn 1/${d} = ${(100/d).toFixed(2)}%, so ${n}/${d} = ${n} × ${(100/d).toFixed(2)}%`,'#%',2)},
+pc(){const x=pk([5,10,15,20,25,30,35,40,45,60,75]),N=r(2,60)*20;return mk(`${x}% of ${N} = ?`,x*N/100,`Break it up: 10% = shift the decimal, 5% = half of 10%.`)},
+succ(){const a=pk([10,20,25,30]),b=pk([10,15,20,40]);return mk(`Two successive discounts of ${a}% and ${b}% equal one single discount of (%)?`,a+b-a*b/100,`Single discount = a + b − ab/100 = ${a} + ${b} − ${a*b/100}`,'#%',2)},
+simp(){if(r(0,1)){const a=r(51,99),b=r(11,49);return mk(`${a}² − ${b}² = ?`,a*a-b*b,`Use (a+b)(a−b): ${a+b} × ${a-b}`)}const a=r(12,40),b=r(3,15),c=r(4,12),e=r(10,60);return mk(`(${a} + ${b}) × ${c} − ${e} = ?`,(a+b)*c-e,`Brackets first, then multiply, then subtract.`)},
+appr(){const p=pk([10,20,25,40,50]),N=r(4,20)*100,k=r(10,20);return mk(`Approximately: ${(p-.02).toFixed(2)}% of ${N-.2} + (${k-.03})² = ?`,p*N/100+k*k,`Round: ${p}% of ${N} + ${k}² = ${p*N/100} + ${k*k}`)},
+avg(){const a=r(45,70),x=[1,2,3,4].map(()=>r(30,50)),f=5*a-x.reduce((s,v)=>s+v);return mk(`The average of 5 numbers is ${a}. Four of them are ${x.join(', ')}. The fifth number is?`,f,`Total = ${a} × 5 = ${5*a}; subtract the four given numbers.`)},
+ratio(){const[a,b]=pk([[2,3],[3,4],[5,7],[4,5],[3,5],[5,6]]),k=r(3,20);return mk(`Two numbers are in the ratio ${a}:${b} and their sum is ${k*(a+b)}. The larger number is?`,k*b,`Total parts = ${a+b}, so one part = ${k*(a+b)} ÷ ${a+b} = ${k}.`)},
+pl(){const p=pk([5,10,15,20,25,30]),c=r(5,50)*20,s=c*(100+p)/100;return mk(`An article sold for ₹${s} gives a profit of ${p}%. Its cost price is?`,c,`CP = SP × 100/(100+${p}) = ${s} × 100/${100+p}`,'₹#')},
+si(){const P=r(2,30)*500,R=r(4,12),T=r(2,6);return mk(`Simple interest on ₹${P} at ${R}% p.a. for ${T} years is?`,P*R*T/100,`SI = PRT/100 = ${P} × ${R} × ${T} / 100`,'₹#')},
+ci(){const R=pk([5,10,20]),P=r(1,25)*800;return mk(`Compound interest on ₹${P} at ${R}% p.a. for 2 years is?`,Math.round(P*((1+R/100)**2-1)),`2-year CI = ${R} + ${R} + ${R}×${R}/100 = ${2*R+R*R/100}% of the principal`,'₹#')},
+tw(){const[a,b]=pk([[12,6],[10,15],[20,30],[12,24],[18,9],[36,12],[24,8],[40,10],[30,15],[60,20]]);return mk(`A can finish a job in ${a} days and B in ${b} days. Together they finish it in?`,a*b/(a+b),`Together = ab/(a+b) = ${a}×${b}/${a+b}`,'# days')},
+sd(){if(r(0,1)){const[a,b]=pk([[40,60],[30,60],[20,30],[60,90],[50,75],[30,20],[36,60],[48,80]]);return mk(`A car goes from A to B at ${a} km/h and returns at ${b} km/h. Its average speed for the round trip is?`,2*a*b/(a+b),`Average speed = 2ab/(a+b) = 2×${a}×${b}/${a+b}`,'# km/h')}const v=pk([36,54,72,90]),t=r(5,20);return mk(`A train running at ${v} km/h crosses a pole in ${t} seconds. Its length is?`,v*5/18*t,`${v} km/h × 5/18 = ${v*5/18} m/s, then × ${t} s`,'# m')},
+boat(){const U=r(6,15),s=r(1,5),D=U+2*s,w=r(0,1);return mk(`A boat's downstream speed is ${D} km/h and upstream speed is ${U} km/h. ${w?'The speed of the stream':'The speed in still water'} is?`,w?s:(D+U)/2,w?`Stream = (D − U)/2`:`Still water = (D + U)/2`,'# km/h')},
+mix(){const[m,n]=pk([[1,1],[1,2],[2,3],[1,3],[3,2],[2,1]]),M=r(30,60),k=r(1,5),a=M-n*k,b=M+m*k;return mk(`Rice at ₹${a}/kg and ₹${b}/kg is mixed in the ratio ${m}:${n}. The mixture costs per kg?`,M,`Weighted mean = (${a}×${m} + ${b}×${n}) / ${m+n}`,'₹#')},
+age(){const s=r(5,15),k=r(2,5);return mk(`The sum of a father's and son's ages is ${s*(k+1)} years, and the father is ${k} times as old as the son. The father's age is?`,s*k,`Total parts = ${k+1}, so the son is ${s} and the father is ${k}×${s}.`,'# yrs')},
+part(){const[m,n]=pk([[2,3],[3,4],[1,2],[3,5],[2,5]]),x=r(1,5),P=(m+n)*r(100,900);return mk(`A and B invest ₹${m*x*1000} and ₹${n*x*1000} for the same period. Total profit is ₹${P}. A's share is?`,P*m/(m+n),`Ratio = ${m}:${n}, so A gets ${m}/${m+n} of the profit.`,'₹#')},
+mens(){if(r(0,1)){const k=r(1,5),R=7*k;return mk(`Area of a circle of radius ${R} cm (π = 22/7) is?`,22*7*k*k,`πr² = 22/7 × ${R} × ${R}`,'# cm²')}const a=r(3,15);return mk(`Total surface area of a cube of side ${a} cm is?`,6*a*a,`TSA = 6a² = 6 × ${a}²`,'# cm²')},
+quad(){const p=r(2,9),q=r(2,9);return mk(`For x² − ${p+q}x + ${p*q} = 0, the larger root of x is?`,Math.max(p,q),`Split the middle term: the roots are ${p} and ${q}.`)},
+ser(){const t=r(0,2),s=r(2,9),k=r(1,4);let a=[s];for(let x=0;x<5;x++)a.push(t==0?a[x]*2+k:a[x]+(x+1)*2*k);if(t==2)a=[0,1,2,3,4,5].map(x=>(x+s)**2);return mk(`Find the next number: ${a.slice(0,5).join(', ')}, ?`,a[5],[`Each term = 2 × previous + ${k}`,`The differences rise by ${2*k} each step`,`These are consecutive squares`][t])},
+hcf(){const g=r(2,12),[m,n]=pk([[2,3],[3,4],[4,5],[5,6],[3,5],[2,5],[5,7],[3,7]]),w=r(0,1);return mk(`The ${w?'HCF':'LCM'} of ${g*m} and ${g*n} is?`,w?g:g*m*n,w?`Common factor = ${g}`:`LCM = product ÷ HCF = ${g*m} × ${g*n} / ${g}`)},
+ud(){const a=r(2,9),b=r(10,99);let u=1;for(let x=0;x<b;x++)u=u*a%10;const o=sh([...new Set([u,(u+1)%10,(u+3)%10,(u+7)%10])]);return{q:`What is the unit digit of ${a}^${b}?`,o:o.map(String),c:o.indexOf(u),t:`Unit digits of powers of ${a} repeat in a cycle; use ${b} mod 4 (take 4 if the remainder is 0).`}},
+comb(){const n=r(5,10),k=r(2,3);let c=1;for(let x=0;x<k;x++)c=c*(n-x)/(x+1);return mk(`In how many ways can a committee of ${k} be chosen from ${n} people?`,c,`${n}C${k} = ${n}! / (${k}! × ${n-k}!)`)}};
+const D=[["Addition & Subtraction",["add"]],["Squares ending in 5",["sq5"]],["Squares near 50 & 100",["sq"]],["Nikhilam Multiplication",["nik"]],["Cross Multiplication",["urd"]],["×11, ×5, ×25, ×125",["mul"]],["Revision 1 (Days 1–6)"],["Fractions to %",["frac"]],["% of Number & Successive %",["pc","succ"]],["Simplification & Approximation",["simp","appr"]],["Averages",["avg"]],["Ratio & Proportion",["ratio"]],["Profit & Loss",["pl"]],["Revision 2 (Days 8–13)"],["Simple Interest",["si"]],["Compound Interest",["ci"]],["Time & Work",["tw"]],["Speed, Time & Distance",["sd"]],["Boats & Streams",["boat"]],["Alligation & Mixture",["mix"]],["Revision 3 (Days 15–20)"],["Ages",["age"]],["Partnership",["part"]],["Mensuration",["mens"]],["Number Series",["ser"]],["HCF, LCM & Unit Digit",["hcf","ud"]],["Quadratics & Combinations",["quad","comb"]],["Mock Test 1","*"],["Mock Test 2","*"],["Final Full Mock","*"]];
+const N=x=>x==30?30:x>27?20:x%7==0?15:10;
+const gens=x=>{const g=D[x-1][1];return g=="*"?Object.keys(G):g||D.slice(x-7,x-1).flatMap(y=>y[1])};
+let P={};try{P=JSON.parse(localStorage.getItem('bq30')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('bq30',JSON.stringify(P))}catch(e){}};
+function build(x,at){rnd=MS(x*977+at*131+7);const g=gens(x),qs=[],seen=new Set();let t=0;while(qs.length<N(x)&&t++<500){const q=G[pk(g)]();if(!seen.has(q.q)){seen.add(q.q);qs.push(q)}}return qs}
+function home(){clearInterval(T);const v=Object.values(P),n=v.length,av=n?Math.round(v.reduce((s,x)=>s+x.a,0)/n):0;
+$('#app').innerHTML=`<h1>🧮 Banking Quant + Vedic Math</h1><p class="mut">30 days of timed tests. Correct = +1, wrong = −0.25. Tap a day to begin; retries give fresh questions.</p><div class="stats"><b>${n}/30</b> days finished, average accuracy <b>${av}%</b></div><div class="grid">${D.map((x,k)=>{const y=k+1,p=P[y];return`<button class="day${p?' done':''}${x[1]?'':' mock'}${x[1]=='*'?' mock':''}" onclick="start(${y})"><small>Day ${y}</small><span>${x[0]}</span><em>${p?'Score '+p.s+' ('+p.a+'%)':N(y)+' questions'}</em></button>`}).join('')}</div>`}
+function start(x){d=x;att=P[d]?P[d].n:0;Q=build(d,att);A=Array(Q.length).fill(-1);i=0;left=N(d)*50;clearInterval(T);T=setInterval(()=>{left--;tick();if(left<=0)submit()},1000);show()}
+const tick=()=>{const e=$('#tm');if(e)e.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0')};
+function show(){const q=Q[i];$('#app').innerHTML=`<div class="bar"><b>Day ${d}: ${D[d-1][0]}</b><span id="tm" class="tm"></span></div><p class="mut">Question ${i+1} of ${Q.length}</p><div class="card"><h2>${q.q}</h2>${q.o.map((o,k)=>`<button class="opt${A[i]==k?' sel':''}" onclick="choose(${k})">${'ABCD'[k]}. ${o}</button>`).join('')}</div><div class="nav"><button onclick="go(-1)" ${i?'':'disabled'}>Previous</button><button onclick="go(1)" ${i<Q.length-1?'':'disabled'}>Next</button><button onclick="A[i]=-1;show()">Clear answer</button><button class="pri" onclick="if(confirm('Submit this test?'))submit()">Submit test</button></div><div class="pal">${Q.map((_,k)=>`<button class="${A[k]>=0?'ans':''}${k==i?' cur':''}" onclick="i=${k};show()">${k+1}</button>`).join('')}</div>`;tick()}
+const choose=k=>{A[i]=k;show()},go=n=>{i+=n;show()};
+function submit(){clearInterval(T);let c=0,w=0;Q.forEach((q,k)=>{if(A[k]>=0)A[k]==q.c?c++:w++});const s=+(c-w*.25).toFixed(2),a=Math.round(c/Q.length*100),n=N(d)*50-left;P[d]={s,a,n:att+1};save();
+$('#app').innerHTML=`<h1>Day ${d} result</h1><div class="card"><div class="big">${s} / ${Q.length}</div><p>✅ ${c} correct, ❌ ${w} wrong, ⏭ ${Q.length-c-w} skipped<br>Accuracy ${a}%, time taken ${Math.floor(n/60)}m ${n%60}s</p></div><div class="nav"><button class="pri" onclick="start(${d})">Retry with new questions</button><button onclick="home()">All 30 days</button></div><h2 style="margin-top:18px">Review with Vedic tricks</h2>${Q.map((q,k)=>{const u=A[k];return`<div class="card ${u<0?'':u==q.c?'good':'badc'}"><b>Q${k+1}.</b> ${q.q}<br>Your answer: ${u<0?'not attempted':q.o[u]}. Correct answer: <b>${q.o[q.c]}</b><br><small class="mut">💡 ${q.t}</small></div>`}).join('')}`;scrollTo(0,0)}
+home();
+</script></body></html>
